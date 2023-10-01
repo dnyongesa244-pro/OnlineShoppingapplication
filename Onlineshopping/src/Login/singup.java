@@ -26,7 +26,6 @@ public class singup extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -54,8 +53,6 @@ public class singup extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel6.setText("Email");
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
 
@@ -100,12 +97,17 @@ public class singup extends javax.swing.JFrame {
         });
 
         jLabel10.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel10.setText("Emile");
+        jLabel10.setText("Email");
 
         BtnBack.setBackground(new java.awt.Color(171, 171, 182));
         BtnBack.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         BtnBack.setForeground(new java.awt.Color(102, 255, 102));
         BtnBack.setText("Back");
+        BtnBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnBackMouseClicked(evt);
+            }
+        });
 
         BtnSave.setBackground(new java.awt.Color(171, 171, 182));
         BtnSave.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
@@ -227,16 +229,10 @@ public class singup extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
-        jRadioButton1.getAccessibleContext().setAccessibleName("Male");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 2, Short.MAX_VALUE))
@@ -245,9 +241,7 @@ public class singup extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -264,6 +258,12 @@ public class singup extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void BtnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBackMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new loginpage().setVisible(true);
+    }//GEN-LAST:event_BtnBackMouseClicked
 
     /**
      * @param args the command line arguments
@@ -312,7 +312,6 @@ public class singup extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

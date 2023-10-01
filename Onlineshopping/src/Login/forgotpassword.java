@@ -63,11 +63,21 @@ public class forgotpassword extends javax.swing.JFrame {
         BtnBack.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         BtnBack.setForeground(new java.awt.Color(102, 255, 102));
         BtnBack.setText("Back");
+        BtnBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnBackMouseClicked(evt);
+            }
+        });
 
         BtnSave.setBackground(new java.awt.Color(171, 171, 182));
         BtnSave.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         BtnSave.setForeground(new java.awt.Color(102, 255, 102));
         BtnSave.setText("Save");
+        BtnSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnSaveMouseClicked(evt);
+            }
+        });
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,6 +176,17 @@ public class forgotpassword extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void BtnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnSaveMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_BtnSaveMouseClicked
+
+    private void BtnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBackMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new loginpage().setVisible(true);
+    }//GEN-LAST:event_BtnBackMouseClicked
 
     /**
      * @param args the command line arguments
