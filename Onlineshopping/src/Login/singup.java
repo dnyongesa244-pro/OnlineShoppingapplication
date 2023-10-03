@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -272,19 +273,31 @@ public class singup extends javax.swing.JFrame {
         {
             System.out.println("Error "+ ex.getMessage());
         }*/
-        String firstname = fnametext.getText();
-        String secondname = lnametext.getText();
-        String gender = gendertext.getText();
-        String email = emailtext.getText();
-        String phonenumber = phonetext.getText();
-        String password = passwordtext.getText();
-        String address = addresstext.getText();
-        String security = securirtyqn.getText();
-        String anser = securityanser.getText();
+        
+       String firstname = fnametext.getText();
+    String secondname = lnametext.getText();
+    String gender = gendertext.getText();
+    String email = emailtext.getText();
+    String phonenumber = phonetext.getText();
+    String password = passwordtext.getText();
+    String address = addresstext.getText();
+    String security = securirtyqn.getText();
+    String anser = securityanser.getText();
+
+    // Check if any of the required fields are empty
+    if (firstname.isEmpty() || secondname.isEmpty() || gender.isEmpty() || 
+        email.isEmpty() || phonenumber.isEmpty() || password.isEmpty() || 
+        address.isEmpty() || security.isEmpty() || anser.isEmpty()) {
+        
+        // If any of the required fields are empty, show an error message
+        JOptionPane.showMessageDialog(this, "Please fill out all required fields.", 
+                "Incomplete Form", JOptionPane.ERROR_MESSAGE);
+    } else {
+        // All required fields are filled, proceed with database insertion
 
         String sql = "INSERT INTO customerdatails (First_name, Second_Name, Gender, Email, Phone_Number, password, Address, securityquestion, anser) VALUES(?, ?, ?, ? ,? , ? ,? ,? ,?)";
 
-        try{
+        try {
             PreparedStatement pst = con.prepareStatement(sql);
 
             pst.setString(1, firstname);
@@ -299,25 +312,30 @@ public class singup extends javax.swing.JFrame {
 
             int rowsAffected = pst.executeUpdate();
 
-            if(rowsAffected>0)
-            {
-                System.out.println("Acound created Succesfull");
+            if (rowsAffected > 0) {
+                // Account created successfully
+                JOptionPane.showMessageDialog(this, "Account created successfully.", 
+                        "Success", JOptionPane.INFORMATION_MESSAGE);
 
+                // Clear input fields
                 fnametext.setText("");
                 lnametext.setText("");
-                gendertext.setToolTipText("");
+                gendertext.setText("");
                 emailtext.setText("");
                 phonetext.setText("");
                 passwordtext.setText("");
                 addresstext.setText("");
-                securirtyqn.setActionCommand("");
+                securirtyqn.setText("");
                 securityanser.setText("");
             } else {
-                System.out.println("Acount creation faild");
+                // Account creation failed
+                JOptionPane.showMessageDialog(this, "Account creation failed.", 
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch(Exception ex){
+        } catch (Exception ex) {
             System.out.println("error " + ex.getMessage());
         }
+    }
         
         
 
