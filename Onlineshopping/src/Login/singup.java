@@ -3,18 +3,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Login;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 
 /**
  *
  * @author dkoko
  */
+
 public class singup extends javax.swing.JFrame {
 
     /**
      * Creates new form singup
      */
+    Connection con;
     public singup() {
         initComponents();
+        String url ="jdbc:mysql://localhost:3306/eshoping";
+        String user = "root";
+        String pass = "";
+        
+        try{
+            con = DriverManager.getConnection(url, user, pass);
+        }catch(SQLException ex) {
+            System.err.println("Error : " + ex.getMessage());
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -28,29 +45,26 @@ public class singup extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jTextField2 = new javax.swing.JTextField();
+        fnametext = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        lnametext = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        emailtext = new javax.swing.JTextField();
+        phonetext = new javax.swing.JTextField();
+        passwordtext = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        addresstext = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
         jLabel10 = new javax.swing.JLabel();
         BtnBack = new javax.swing.JButton();
-        BtnSave = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        singupbtn = new javax.swing.JButton();
+        securityanser = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        gendertext = new javax.swing.JTextField();
+        securirtyqn = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,23 +74,18 @@ public class singup extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 41, 255));
         jLabel1.setText("SingUp");
 
-        jRadioButton2.setText("Female");
-
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("First Name");
 
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("Second Name");
+        jLabel3.setText("Last Name");
 
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Gender");
 
-        jLabel5.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel5.setText("Date Of Birth");
-
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        emailtext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                emailtextActionPerformed(evt);
             }
         });
 
@@ -88,13 +97,6 @@ public class singup extends javax.swing.JFrame {
 
         jLabel9.setForeground(new java.awt.Color(102, 102, 102));
         jLabel9.setText("Phone Number");
-
-        jRadioButton1.setText("Male");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
 
         jLabel10.setForeground(new java.awt.Color(102, 102, 102));
         jLabel10.setText("Email");
@@ -109,16 +111,19 @@ public class singup extends javax.swing.JFrame {
             }
         });
 
-        BtnSave.setBackground(new java.awt.Color(171, 171, 182));
-        BtnSave.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        BtnSave.setForeground(new java.awt.Color(102, 255, 102));
-        BtnSave.setText("Save");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pet name", "Favorite name", "Mothers second name", "Best Actor" }));
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        singupbtn.setBackground(new java.awt.Color(171, 171, 182));
+        singupbtn.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        singupbtn.setForeground(new java.awt.Color(102, 255, 102));
+        singupbtn.setText("Create Account");
+        singupbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                singupbtnActionPerformed(evt);
+            }
+        });
+
+        securityanser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                securityanserActionPerformed(evt);
             }
         });
 
@@ -142,7 +147,6 @@ public class singup extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel5)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8)
                             .addComponent(jLabel9)
@@ -152,29 +156,25 @@ public class singup extends javax.swing.JFrame {
                             .addComponent(jLabel14))
                         .addGap(48, 48, 48)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
-                            .addComponent(jTextField5)
-                            .addComponent(jTextField6)
-                            .addComponent(jTextField7)
-                            .addComponent(jTextField8)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField4)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton2))
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField1))))
-                .addContainerGap(58, Short.MAX_VALUE))
+                            .addComponent(fnametext, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                            .addComponent(emailtext)
+                            .addComponent(phonetext)
+                            .addComponent(passwordtext)
+                            .addComponent(addresstext)
+                            .addComponent(lnametext)
+                            .addComponent(securityanser)
+                            .addComponent(gendertext)
+                            .addComponent(securirtyqn))))
+                .addContainerGap(68, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(BtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(singupbtn)
                 .addGap(49, 49, 49)
                 .addComponent(BtnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTextField2, jTextField3, jTextField4, jTextField5, jTextField6, jTextField7, jTextField8});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {addresstext, emailtext, fnametext, lnametext, passwordtext, phonetext});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,47 +184,42 @@ public class singup extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fnametext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lnametext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
-                .addGap(18, 18, 18)
+                    .addComponent(gendertext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailtext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(phonetext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordtext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(addresstext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
+                    .addComponent(jLabel13)
+                    .addComponent(securirtyqn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(securityanser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnSave)
+                    .addComponent(singupbtn)
                     .addComponent(BtnBack))
                 .addGap(24, 24, 24))
         );
@@ -235,35 +230,98 @@ public class singup extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void emailtextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailtextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_emailtextActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void securityanserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_securityanserActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_securityanserActionPerformed
 
     private void BtnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBackMouseClicked
         // TODO add your handling code here:
         this.dispose();
         new loginpage().setVisible(true);
     }//GEN-LAST:event_BtnBackMouseClicked
+
+    private void singupbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_singupbtnActionPerformed
+        // TODO add your handling code here:
+        /*String firstName, secondName, gender, DOB, email, address, securityQuestion, answer;
+        String url, user, password;
+        url = "jdbc:mysql://localhost:3306/customerdatails";
+        user = "root";
+        password = "";
+        try{
+            class.Forname("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url, user, pasword);
+            
+            
+        } catch(Exception ex)
+        {
+            System.out.println("Error "+ ex.getMessage());
+        }*/
+        String firstname = fnametext.getText();
+        String secondname = lnametext.getText();
+        String gender = gendertext.getText();
+        String email = emailtext.getText();
+        String phonenumber = phonetext.getText();
+        String password = passwordtext.getText();
+        String address = addresstext.getText();
+        String security = securirtyqn.getText();
+        String anser = securityanser.getText();
+
+        String sql = "INSERT INTO customerdatails (First_name, Second_Name, Gender, Email, Phone_Number, password, Address, securityquestion, anser) VALUES(?, ?, ?, ? ,? , ? ,? ,? ,?)";
+
+        try{
+            PreparedStatement pst = con.prepareStatement(sql);
+
+            pst.setString(1, firstname);
+            pst.setString(2, secondname);
+            pst.setString(3, gender);
+            pst.setString(4, email);
+            pst.setString(5, phonenumber);
+            pst.setString(6, password);
+            pst.setString(7, address);
+            pst.setString(8, security);
+            pst.setString(9, anser);
+
+            int rowsAffected = pst.executeUpdate();
+
+            if(rowsAffected>0)
+            {
+                System.out.println("Acound created Succesfull");
+
+                fnametext.setText("");
+                lnametext.setText("");
+                gendertext.setToolTipText("");
+                emailtext.setText("");
+                phonetext.setText("");
+                passwordtext.setText("");
+                addresstext.setText("");
+                securirtyqn.setActionCommand("");
+                securityanser.setText("");
+            } else {
+                System.out.println("Acount creation faild");
+            }
+        } catch(Exception ex){
+            System.out.println("error " + ex.getMessage());
+        }
+        
+        
+
+    }//GEN-LAST:event_singupbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -302,8 +360,10 @@ public class singup extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBack;
-    private javax.swing.JButton BtnSave;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTextField addresstext;
+    private javax.swing.JTextField emailtext;
+    private javax.swing.JTextField fnametext;
+    private javax.swing.JTextField gendertext;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
@@ -311,20 +371,15 @@ public class singup extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField lnametext;
+    private javax.swing.JTextField passwordtext;
+    private javax.swing.JTextField phonetext;
+    private javax.swing.JTextField securirtyqn;
+    private javax.swing.JTextField securityanser;
+    private javax.swing.JButton singupbtn;
     // End of variables declaration//GEN-END:variables
 }

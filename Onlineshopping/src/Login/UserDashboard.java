@@ -38,7 +38,7 @@ public class UserDashboard extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        myaccount = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -131,11 +131,16 @@ public class UserDashboard extends javax.swing.JFrame {
         });
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 150, -1));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(51, 0, 0));
-        jLabel9.setText("My Account");
-        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 110, -1));
+        myaccount.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        myaccount.setForeground(new java.awt.Color(51, 0, 0));
+        myaccount.setText("My Account");
+        myaccount.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        myaccount.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                myaccountMouseClicked(evt);
+            }
+        });
+        jPanel3.add(myaccount, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 110, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 220, 450));
 
@@ -238,6 +243,12 @@ public class UserDashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 
+    private void myaccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myaccountMouseClicked
+        // TODO add your handling code here:
+        new UserAccount().setVisible(true);
+        
+    }//GEN-LAST:event_myaccountMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -284,7 +295,6 @@ public class UserDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -293,5 +303,6 @@ public class UserDashboard extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel myaccount;
     // End of variables declaration//GEN-END:variables
 }
