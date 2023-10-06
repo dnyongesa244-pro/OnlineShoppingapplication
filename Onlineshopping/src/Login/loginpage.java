@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JPasswordField;
@@ -23,8 +24,10 @@ public class loginpage extends javax.swing.JFrame {
     /**
      * Creates new form login page
      */
+    private JPasswordField passwordField;
     Connection con;
     public loginpage() {
+        passwordField = new JPasswordField();
         initComponents();
         String url ="jdbc:mysql://localhost:3306/testerdatabase";
         String user = "root";
@@ -34,7 +37,7 @@ public class loginpage extends javax.swing.JFrame {
             con = DriverManager.getConnection(url, user, pass);
         }catch(SQLException ex) {
             System.err.println("Error : " + ex.getMessage());
-            ex.printStackTrace();
+            //ex.printStackTrace();
         }
     }
 
@@ -62,8 +65,9 @@ public class loginpage extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        passworttext = new javax.swing.JTextField();
         resetbtn = new javax.swing.JButton();
+        passwordtext = new javax.swing.JPasswordField();
+        showpwd = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -164,6 +168,13 @@ public class loginpage extends javax.swing.JFrame {
             }
         });
 
+        showpwd.setText("Show");
+        showpwd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showpwdActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pswwordtextLayout = new javax.swing.GroupLayout(pswwordtext);
         pswwordtext.setLayout(pswwordtextLayout);
         pswwordtextLayout.setHorizontalGroup(
@@ -173,30 +184,33 @@ public class loginpage extends javax.swing.JFrame {
                     .addGroup(pswwordtextLayout.createSequentialGroup()
                         .addGap(109, 109, 109)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
                         .addComponent(jLabel9))
                     .addGroup(pswwordtextLayout.createSequentialGroup()
                         .addGroup(pswwordtextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pswwordtextLayout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addGroup(pswwordtextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(42, 42, 42)
-                                .addGroup(pswwordtextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(pswwordtextLayout.createSequentialGroup()
-                                        .addComponent(jButton1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(resetbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(emailtext, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                                    .addComponent(passworttext)))
                             .addGroup(pswwordtextLayout.createSequentialGroup()
                                 .addGap(112, 112, 112)
                                 .addComponent(jLabel12))
                             .addGroup(pswwordtextLayout.createSequentialGroup()
                                 .addGap(136, 136, 136)
                                 .addComponent(jLabel11)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pswwordtextLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(pswwordtextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(42, 42, 42)
+                        .addGroup(pswwordtextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(pswwordtextLayout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(resetbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(emailtext, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                            .addComponent(passwordtext))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(showpwd, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)))
                 .addContainerGap())
         );
         pswwordtextLayout.setVerticalGroup(
@@ -211,10 +225,12 @@ public class loginpage extends javax.swing.JFrame {
                         .addComponent(emailtext, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(pswwordtextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(passworttext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pswwordtextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(passwordtext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(showpwd)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pswwordtextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -223,7 +239,7 @@ public class loginpage extends javax.swing.JFrame {
                 .addComponent(jLabel11)
                 .addGap(35, 35, 35)
                 .addComponent(jLabel12)
-                .addGap(0, 221, Short.MAX_VALUE))
+                .addGap(0, 209, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -335,19 +351,15 @@ public class loginpage extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         //writing data from the text field
-        String email = emailtext.getText();
-        String Pasword =passworttext.getText();
-       
-        //queryt the database
-        String sql="SELECT Email, password FROM usersdetails";
-        try{
-            PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, email);
-            pst.setString(2, Pasword);
-            ResultSet rs = pst.executeQuery();
-        } catch (SQLException ex){
-            ex.printStackTrace();
-        }     
+        if(emailtext.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(null,"Please Input Username");
+        } 
+        if(passwordtext.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(null,"Please Input the password");
+        }
+          
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -372,6 +384,18 @@ public class loginpage extends javax.swing.JFrame {
         // TODO add your handling code here:
         //clearFields();
     }//GEN-LAST:event_resetbtnActionPerformed
+
+    private void showpwdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showpwdActionPerformed
+        // TODO add your handling code here:
+        // Check if the "Show" checkbox is selected
+    if (showpwd.isSelected()) {
+        // If selected, show the password (set echo char to '\0' which is null character)
+        passwordtext.setEchoChar('\0');
+    } else {
+        // If not selected, hide the password (set echo char to '*')
+        passwordtext.setEchoChar('*');
+    }
+    }//GEN-LAST:event_showpwdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -429,8 +453,9 @@ public class loginpage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField passworttext;
+    private javax.swing.JPasswordField passwordtext;
     private javax.swing.JPanel pswwordtext;
     private javax.swing.JButton resetbtn;
+    private javax.swing.JCheckBox showpwd;
     // End of variables declaration//GEN-END:variables
 }
