@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JPasswordField;
+import java.sql.Statement;
 
 
 /**
@@ -350,18 +351,37 @@ public class loginpage extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        //writing data from the text field
-        if(emailtext.getText().equals(""))
-        {
-            JOptionPane.showMessageDialog(null,"Please Input Username");
-        } 
-        else if(passwordtext.getText().equals(""))
-        {
-            JOptionPane.showMessageDialog(null,"Please Input the password");
-        } else {
-            JOptionPane.showMessageDialog(null, "Login Successfull");
-        }
+         
+        //code for log in
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/eshoping","root","");
+            
+            String username = emailtext.getText();
+            String password = passwordtext.getText();
+            
+            Statement stm = con.createStatement();
+            
+             //sql query to run
+          String sql = "SELECT * FROM customerdatails WHERE Email = '"+username+"' AND password = '"+password+"'";
+
+          ResultSet rs = stm.executeQuery(sql);
           
+          if(rs.next())
+          {
+              this.dispose();
+              new UserDashboard().setVisible(true);
+          } else {
+              JOptionPane.showMessageDialog(this,"Username or password is inconrect");
+              emailtext.setText("");
+              passwordtext.setText("");
+          }
+          con.close();
+        } catch(Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+         
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
