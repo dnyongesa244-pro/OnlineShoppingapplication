@@ -355,9 +355,11 @@ public class loginpage extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null,"Please Input Username");
         } 
-        if(passwordtext.getText().equals(""))
+        else if(passwordtext.getText().equals(""))
         {
             JOptionPane.showMessageDialog(null,"Please Input the password");
+        } else {
+            JOptionPane.showMessageDialog(null, "Login Successfull");
         }
           
         
