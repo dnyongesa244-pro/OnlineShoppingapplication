@@ -27,6 +27,16 @@ public class AddProduct extends javax.swing.JFrame {
     Connection con;
     public AddProduct() {
         initComponents();
+        String url ="jdbc:mysql://localhost:3306/eshoping";
+        String user = "root";
+        String pass = "";
+        
+        try{
+            con = DriverManager.getConnection(url, user, pass);
+        }catch(SQLException ex) {
+            System.err.println("Error : " + ex.getMessage());
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -301,8 +311,13 @@ public class AddProduct extends javax.swing.JFrame {
 
     private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
         // TODO add your handling code here:
+        if(con == null)
+        {
+            JOptionPane.showMessageDialog(this, "Database connection is not established.");
+            return;
+        }
         try{
-            String query = "insert into product_for_sale values(?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "insert into product_for_sale values(1?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement  pst = con.prepareStatement(query);
             
             pst.setInt(1, Integer.parseInt(lproductid.getText()));
@@ -310,8 +325,8 @@ public class AddProduct extends javax.swing.JFrame {
             pst.setString(3, lproduct_name.getText());
             pst.setString(4, lcategory.getText());
             pst.setString(5,lquantity.getText() );
-            pst.setBytes(7, photo);
-            pst.setInt(8, Integer.parseInt(lprice.getText()));
+            pst.setBytes(6, photo);
+            pst.setInt(7, Integer.parseInt(lprice.getText()));
             
             pst.execute();
             JOptionPane.showMessageDialog(this, btnsave);
