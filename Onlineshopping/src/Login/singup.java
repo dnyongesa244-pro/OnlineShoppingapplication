@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 
+
 /**
  *
  * @author dkoko
@@ -259,81 +260,65 @@ public class singup extends javax.swing.JFrame {
 
     private void singupbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_singupbtnActionPerformed
         // TODO add your handling code here:
-        /*String firstName, secondName, gender, DOB, email, address, securityQuestion, answer;
-        String url, user, password;
-        url = "jdbc:mysql://localhost:3306/customerdatails";
-        user = "root";
-        password = "";
-        try{
-            class.Forname("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, user, pasword);
-            
-            
-        } catch(Exception ex)
-        {
-            System.out.println("Error "+ ex.getMessage());
-        }*/
-        
+               
        String firstname = fnametext.getText();
-    String secondname = lnametext.getText();
-    String gender = gendertext.getText();
-    String email = emailtext.getText();
-    String phonenumber = phonetext.getText();
-    String password = passwordtext.getText();
-    String address = addresstext.getText();
-    String security = securirtyqn.getText();
-    String anser = securityanser.getText();
+       String secondname = lnametext.getText();
+       String gender = gendertext.getText();
+       String email = emailtext.getText();
+       String phonenumber = phonetext.getText();
+       String password = passwordtext.getText();
+       String address = addresstext.getText();
+       String security = securirtyqn.getText();
+       String anser = securityanser.getText();
 
-    // Check if any of the required fields are empty
-    if (firstname.isEmpty() || secondname.isEmpty() || gender.isEmpty() || 
-        email.isEmpty() || phonenumber.isEmpty() || password.isEmpty() || 
-        address.isEmpty() || security.isEmpty() || anser.isEmpty()) {
+       // Check if any of the required fields are empty
+       if (firstname.isEmpty() || secondname.isEmpty() || gender.isEmpty() || 
+           email.isEmpty() || phonenumber.isEmpty() || password.isEmpty() || 
+           address.isEmpty() || security.isEmpty() || anser.isEmpty()) {
         
-        // If any of the required fields are empty, show an error message
-        JOptionPane.showMessageDialog(this, "Please fill out all required fields.", 
-                "Incomplete Form", JOptionPane.ERROR_MESSAGE);
-    } else {
-        // All required fields are filled, proceed with database insertion
+           // If any of the required fields are empty, show an error message
+           JOptionPane.showMessageDialog(this, "Please fill out all required fields.", 
+                   "Incomplete Form", JOptionPane.ERROR_MESSAGE);
+       } else {
+           // All required fields are filled, proceed with database insertion
 
-        String sql = "INSERT INTO customerdatails (First_name, Second_Name, Gender, Email, Phone_Number, password, Address, securityquestion, anser) VALUES(?, ?, ?, ? ,? , ? ,? ,? ,?)";
+           String sql = "INSERT INTO customerdatails (First_name, Second_Name, Gender, Email, Phone_Number, password, Address, securityquestion, anser) VALUES(?, ?, ?, ? ,? , ? ,? ,? ,?)";
+           try {
+                PreparedStatement pst = con.prepareStatement(sql);
 
-        try {
-            PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, firstname);
+                pst.setString(2, secondname);
+                pst.setString(3, gender);
+                pst.setString(4, email);
+                pst.setString(5, phonenumber);
+                pst.setString(6, password);
+                pst.setString(7, address);
+                pst.setString(8, security);
+                pst.setString(9, anser);
 
-            pst.setString(1, firstname);
-            pst.setString(2, secondname);
-            pst.setString(3, gender);
-            pst.setString(4, email);
-            pst.setString(5, phonenumber);
-            pst.setString(6, password);
-            pst.setString(7, address);
-            pst.setString(8, security);
-            pst.setString(9, anser);
+                int rowsAffected = pst.executeUpdate();
 
-            int rowsAffected = pst.executeUpdate();
+                if (rowsAffected > 0) {
+                   // Account created successfully
+                   JOptionPane.showMessageDialog(this, "Account created successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            if (rowsAffected > 0) {
-                // Account created successfully
-                JOptionPane.showMessageDialog(this, "Account created successfully.", 
-                        "Success", JOptionPane.INFORMATION_MESSAGE);
-
-                // Clear input fields
-                fnametext.setText("");
-                lnametext.setText("");
-                gendertext.setText("");
-                emailtext.setText("");
-                phonetext.setText("");
-                passwordtext.setText("");
-                addresstext.setText("");
-                securirtyqn.setText("");
-                securityanser.setText("");
+                   // Clear input fields
+                   fnametext.setText("");
+                    lnametext.setText("");
+                    gendertext.setText("");
+                    emailtext.setText("");
+                    phonetext.setText("");
+                    passwordtext.setText("");
+                    addresstext.setText("");
+                    securirtyqn.setText("");
+                    securityanser.setText("");
             } else {
                 // Account creation failed
                 JOptionPane.showMessageDialog(this, "Account creation failed.", 
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception ex) {
-            System.out.println("error " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
         
