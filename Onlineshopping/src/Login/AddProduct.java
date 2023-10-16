@@ -14,6 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
@@ -37,6 +39,55 @@ public class AddProduct extends javax.swing.JFrame {
             System.err.println("Error : " + ex.getMessage());
             ex.printStackTrace();
         }
+    }
+    
+    public int random_number(){
+        int num1 = (int)(Math.random() * 1000);
+        int num2 = (int)(Math.random() * 1000);
+        
+        int id = num1 * num2;
+        
+        if (id==0)
+        {
+            return random_number();
+        } else {
+            return id;
+        }
+    }
+
+   // public int validate_id(int db_id){
+    //    if(random_number() == db_id){
+    //        return random_number();
+     //   }
+     //   else{
+     //       return random_number();
+     //   }
+    //}
+    
+    public boolean checkexixtence(int num)
+    {
+         try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/eshoping", "root", "");
+
+        String randomid = lproductid.getText();
+
+        Statement stm = con.createStatement();
+
+        // SQL query to check existence
+        String sql = "SELECT * FROM product_for_sale WHERE product_id = '" + randomid + "'";
+
+        ResultSet rs = stm.executeQuery(sql);
+
+        boolean exists = rs.next(); // If rs.next() is true, the record exists.
+
+        con.close();
+
+        return exists;
+    } catch (Exception ex) {
+        System.out.println(ex.getMessage());
+        return false;
+    }
     }
 
     /**
@@ -68,6 +119,7 @@ public class AddProduct extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         imageLoad = new javax.swing.JLabel();
         imagepath = new javax.swing.JTextField();
+        random1d = new java.awt.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -166,6 +218,13 @@ public class AddProduct extends javax.swing.JFrame {
                 .addGap(14, 14, 14))
         );
 
+        random1d.setLabel("Generateid");
+        random1d.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                random1dActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -190,15 +249,14 @@ public class AddProduct extends javax.swing.JFrame {
                                 .addGap(125, 125, 125)
                                 .addComponent(btnsave)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lcategory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lproduct_name, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lsellers_email, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lproductid, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lquantity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(157, 157, 157))
+                            .addComponent(lcategory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lproduct_name, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lsellers_email, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lproductid, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lquantity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37)
+                        .addComponent(random1d, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(63, 63, 63))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(90, 90, 90)
                         .addComponent(jLabel1)
@@ -224,13 +282,14 @@ public class AddProduct extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(13, 13, 13)
-                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31))
+                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(lproductid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(lproductid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(random1d, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lsellers_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,8 +309,8 @@ public class AddProduct extends javax.swing.JFrame {
                         .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(limage, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(imagepath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                            .addComponent(imagepath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(lprice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -369,6 +428,17 @@ public class AddProduct extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lpriceActionPerformed
 
+    private void random1dActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_random1dActionPerformed
+        int uniqueRandomNumber;
+    do {
+        // Generate a unique random number
+        uniqueRandomNumber = random_number();
+    } while (checkexixtence(uniqueRandomNumber));
+
+    // Set the random number in the lproductid field
+    lproductid.setText(String.valueOf(uniqueRandomNumber));
+    }//GEN-LAST:event_random1dActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -425,6 +495,7 @@ public class AddProduct extends javax.swing.JFrame {
     private javax.swing.JTextField lproductid;
     private javax.swing.JTextField lquantity;
     private javax.swing.JTextField lsellers_email;
+    private java.awt.Button random1d;
     // End of variables declaration//GEN-END:variables
 byte[] photo=null;
 String filename  = null;
