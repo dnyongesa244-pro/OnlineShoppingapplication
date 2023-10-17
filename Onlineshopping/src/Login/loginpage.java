@@ -7,11 +7,8 @@ package Login;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JPasswordField;
 import java.sql.Statement;
 
@@ -190,11 +187,11 @@ public class loginpage extends javax.swing.JFrame {
                     .addGroup(pswwordtextLayout.createSequentialGroup()
                         .addGroup(pswwordtextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pswwordtextLayout.createSequentialGroup()
-                                .addGap(112, 112, 112)
-                                .addComponent(jLabel12))
-                            .addGroup(pswwordtextLayout.createSequentialGroup()
                                 .addGap(136, 136, 136)
-                                .addComponent(jLabel11)))
+                                .addComponent(jLabel11))
+                            .addGroup(pswwordtextLayout.createSequentialGroup()
+                                .addGap(112, 112, 112)
+                                .addComponent(jLabel12)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pswwordtextLayout.createSequentialGroup()
                         .addGap(31, 31, 31)
@@ -238,7 +235,7 @@ public class loginpage extends javax.swing.JFrame {
                 .addComponent(jLabel11)
                 .addGap(35, 35, 35)
                 .addComponent(jLabel12)
-                .addGap(0, 209, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -367,8 +364,24 @@ public class loginpage extends javax.swing.JFrame {
           
           if(rs.next())
           {
-              this.dispose();
-              new UserDashboard().setVisible(true);
+             String accessLevel = rs.getString("accesslevel");
+            if (accessLevel.equals("admin")) {
+            int choice = JOptionPane.showConfirmDialog(this, "Do you want to login as an admin?", "Admin Login", JOptionPane.YES_NO_OPTION);
+
+            if (choice == JOptionPane.YES_OPTION) {
+            // Redirect to admin page
+            this.dispose();
+            new admin().setVisible(true);
+        } else {
+            // Redirect to user dashboard
+            this.dispose();
+            new UserDashboard().setVisible(true);
+        }
+    } else {
+        // User is not an admin, so redirect to the user dashboard
+        this.dispose();
+        new UserDashboard().setVisible(true);
+    }
           } else {
               JOptionPane.showMessageDialog(this,"Username or password is inconrect");
               emailtext.setText("");
